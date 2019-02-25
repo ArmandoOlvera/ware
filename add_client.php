@@ -21,7 +21,7 @@
           $sql  = "INSERT INTO clientes (";
           $sql .= " idCliente,nombre,categoria";
           $sql .= ") VALUES (";
-          $sql .= "'','{$nombrec}','{$catc}'";
+          $sql .= "0,'{$nombrec}','{$catc}'";
           $sql .= ")";
           $algo= insertarUniversal($sql);
         } else {

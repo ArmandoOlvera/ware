@@ -30,7 +30,7 @@
            $sql  = "INSERT INTO ventas (";
           $sql .= " idVenta,idCliente,fecha,total,subtotal";
           $sql .= ") VALUES (";
-          $sql .= "'',{$IDE},'{$date}',{$totl},{$stotl}";
+          $sql .= "0,{$IDE},'{$date}',{$totl},{$stotl}";
           $sql .= ")";
          $algo= insertarUniversal($sql);
          echo $algo;
@@ -42,7 +42,7 @@
          $s_total   = $db->escape($_POST['total'.$conta]);
          $s_totalA   = $db->escape($_POST['totalA'.$conta]);
          while($p_id!=0){
-              $sql3="INSERT INTO sales(id,product_id,qty,price,date,tax,idVenta) values('',{$p_id},{$s_qty},{$s_total},'{$date}',{$s_totalA},{$uid})";
+              $sql3="INSERT INTO sales(id,product_id,qty,price,date,tax,idVenta) values(0,{$p_id},{$s_qty},{$s_total},'{$date}',{$s_totalA},{$uid})";
               insertarSales($sql3);
               update_product_qty($s_qty,$p_id);
               $conta=$conta+1;
