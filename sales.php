@@ -45,10 +45,10 @@ $sales = find_all_ventas();
                <td class="text-center">$ <?php echo remove_junk($sale['total']); ?></td>
                <td class="text-center">
                   <div class="btn-group">
-                     <a href="edit_venta.php?id=<?php echo (int)$sale['idVenta'];?>" class="btn btn-warning btn-xs"  title="Edit" data-toggle="tooltip">
-                       <span class="glyphicon glyphicon-edit"></span>
+                     <a href="edit_venta.php?id=<?php echo (int)$sale['idVenta'];?>" class="btn btn-warning btn-xs"  title="Ver" data-toggle="tooltip">
+                       <span class="glyphicon glyphicon-list-alt"></span>
                      </a>
-                     <a href="delete_venta.php?id=<?php echo (int)$sale['idVenta'];?>" class="btn btn-danger btn-xs"  title="Delete" data-toggle="tooltip">
+                     <a href="delete_venta.php?id=<?php echo (int)$sale['idVenta'];?>" class="btn btn-danger btn-xs"  title="Borrar" data-toggle="tooltip">
                        <span class="glyphicon glyphicon-trash"></span>
                      </a>
                   </div>

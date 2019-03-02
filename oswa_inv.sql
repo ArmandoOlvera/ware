@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 25-02-2019 a las 03:03:51
+-- Tiempo de generación: 02-03-2019 a las 02:00:58
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 5.6.39
 
@@ -76,7 +76,8 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`idCliente`, `nombre`, `categoria`) VALUES
-(1, 'Juan Perez123', 'Premium');
+(1, 'Juan Perez12345', 'Premium'),
+(2, 'LLiu Shamg Guan', 'Normal');
 
 -- --------------------------------------------------------
 
@@ -132,8 +133,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `quantity`, `buy_price`, `sale_price`, `categorie_id`, `media_id`, `date`) VALUES
-(1, 'Filtro de gasolina', '78', '5.00', '10.00', 1, 1, '2017-06-16 07:03:16'),
-(2, 'Tornillo Universal', '4', '100.00', '150.00', 1, 1, '2019-02-22 16:29:05');
+(1, 'Filtro de gasolina', '64', '5.00', '10.00', 1, 1, '2017-06-16 07:03:16'),
+(2, 'Tornillo Universal', '2', '100.00', '150.00', 1, 1, '2019-02-22 16:29:05'),
+(3, 'Tenedor de prueba', '1', '111.00', '222.00', 1, 0, '2019-02-25 03:19:41');
 
 -- --------------------------------------------------------
 
@@ -150,6 +152,18 @@ CREATE TABLE `sales` (
   `tax` decimal(25,2) DEFAULT NULL,
   `idVenta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `sales`
+--
+
+INSERT INTO `sales` (`id`, `product_id`, `qty`, `price`, `date`, `tax`, `idVenta`) VALUES
+(1, 1, 1, '10.00', '2019-02-24', '11.60', 1),
+(2, 1, 2, '20.00', '2019-02-24', '23.20', 2),
+(3, 1, 6, '60.00', '2019-02-24', '69.60', 3),
+(4, 1, 4, '40.00', '2019-02-24', '46.40', 4),
+(5, 1, 1, '10.00', '2019-03-01', '11.60', 5),
+(6, 2, 2, '300.00', '2019-03-01', '348.00', 5);
 
 -- --------------------------------------------------------
 
@@ -173,7 +187,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `password`, `user_level`, `image`, `status`, `last_login`) VALUES
-(1, 'Admin Users', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'pzg9wa7o1.jpg', 1, '2019-02-25 00:51:50'),
+(1, 'Admin Users', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'pzg9wa7o1.jpg', 1, '2019-03-02 01:34:18'),
 (2, 'Special User', 'special', 'ba36b97a41e7faf742ab09bf88405ac04f99599a', 2, 'no_image.jpg', 1, '2017-06-16 07:11:26'),
 (3, 'Default User', 'user', '12dea96fec20593566ab75692c9949596833adc9', 3, 'no_image.jpg', 1, '2017-06-16 07:11:03');
 
@@ -212,6 +226,17 @@ CREATE TABLE `ventas` (
   `total` float DEFAULT NULL,
   `subtotal` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`idVenta`, `idCliente`, `fecha`, `total`, `subtotal`) VALUES
+(1, 1, '2019-02-24', 11.6, 10),
+(2, 1, '2019-02-24', 23.2, 20),
+(3, 1, '2019-02-24', 69.6, 60),
+(4, 1, '2019-02-24', 46.4, 40),
+(5, 1, '2019-03-01', 359.6, 310);
 
 --
 -- Índices para tablas volcadas
@@ -309,7 +334,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `detalleventas`
@@ -327,13 +352,13 @@ ALTER TABLE `media`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -351,7 +376,7 @@ ALTER TABLE `user_groups`
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `idVenta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idVenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas

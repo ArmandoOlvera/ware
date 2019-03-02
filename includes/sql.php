@@ -30,6 +30,14 @@ function find_by_sql($sql)
   $result_set = $db->while_loop($result);
  return $result_set;
 }
+
+function find_by_sql2($sql)
+{
+  global $db;
+  $result = $db->query($sql);
+  $result_set = $db->while_loop2($result);
+ return $result_set;
+}
 /*--------------------------------------------------------------*/
 /*  Function for Find data from table by id
 /*--------------------------------------------------------------*/
@@ -51,7 +59,7 @@ function findVenta_by_id($table,$id)
   global $db;
   $id = (int)$id;
     if(tableExists($table)){
-          $sql = $db->query("SELECT * FROM {$db->escape($table)} WHERE idVenta={$db->escape($id)} LIMIT 1");
+          $sql = $db->query("SELECT * FROM $table WHERE idVenta = $id LIMIT 1");
           if($result = $db->fetch_assoc($sql))
             return $result;
           else
@@ -71,6 +79,30 @@ function find_by_idCliente($table,$id)
             return null;
      }
 }
+
+
+
+
+function findSales_by_id($table,$id)
+{
+  global $db;
+  $id = (int)$id;
+    if(tableExists($table)){
+     $sql = "SELECT * FROM $table WHERE idVenta = $id ";
+     $result = find_by_sql($sql);
+     return $result;
+     }
+}
+
+function findProducts_by_id($table,$id)
+{
+     global $db;
+    
+     $sql = "SELECT * FROM $table WHERE id = $id LIMIT 1";
+     $result = find_by_sql2($sql);
+     return $result;
+}
+
 /*--------------------------------------------------------------*/
 /* Function for Delete data from table by id
 /*--------------------------------------------------------------*/

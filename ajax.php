@@ -62,23 +62,23 @@
           $html .= "<td id=\"s_name\">".$result['name']."</td>";
           $html .= "<input type=\"hidden\" name=\"s_id\" value=\"{$result['id']}\" >";
           $html  .= "<td>";
-          $html  .= "<input type=\"text\" class=\"form-control\" name=\"price\" value=\"{$result['sale_price']}\">";
+          $html  .= "<input type=\"text\" class=\"form-control\" name=\"price\" value=\"{$result['sale_price']}\" >";
           $html  .= "</td>";
           $html .= "<td id=\"s_qty\">";
-          $html .= "<input type=\"text\" class=\"form-control\" name=\"quantity\" value=\"0\">";
+          $html .= "<input type=\"text\" class=\"form-control\" name=\"quantity\" value=\"0\" required>";
           $html  .= "</td>";
           $html  .= "<td>";
-          $html  .= "<input type=\"text\" class=\"form-control\" name=\"total\" value=\"{$result['sale_price']}\" id=\"total\">";
+          $html  .= "<input type=\"text\" class=\"form-control\" name=\"total\" value=\"{$result['sale_price']}\" id=\"total\"  required>";
           $html  .= "</td>";
           ////
           $html  .= "<td>";
-          $html  .= "<input type=\"text\" class=\"form-control\" name=\"imp\" value=\"16\">";
+          $html  .= "<input type=\"text\" class=\"form-control\" name=\"imp\" value=\"16\" required>";
           $html  .= "</td>";
           ////
           $html  .= "<td>";
-          $html  .= "<input type=\"text\" class=\"form-control\" name=\"totalA\" value=\"0\"  id=\"totalA\">";
+          $html  .= "<input type=\"text\" class=\"form-control\" name=\"totalA\" value=\"0\"  id=\"totalA\" required >";
           $html  .= "</td>";
-           $html  .= "</tr>";
+          $html  .= "</tr>";
           array_push($_SESSION['datos'],$html);
         }
     } else {

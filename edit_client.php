@@ -15,23 +15,23 @@ if(!$cliente){
 <?php
 
   if(isset($_POST['update_sale'])){
-    $req_fields = array('nombreC','catC');
+    $req_fields = array('nombreC','catc');
     validate_fields($req_fields);
         if(empty($errors)){
           $c_id      = $db->escape((int)$datos['idCliente']);
           $nombre   = $db->escape($_POST['nombreC']);
-          $categoria      = $db->escape($_POST['catC']);
-          
+          //$categoria      = $db->escape($_POST['catC']);
+          $categoria= $_POST['catc'];
           $sql  = "UPDATE clientes SET";
           $sql .= " idCliente = {$c_id},nombre='{$nombre}',categoria='{$categoria}'";
           $sql .= " WHERE idCliente ={$c_id}";
           $result = $db->query($sql);
           if( $result && $db->affected_rows() === 1){
                    // update_product_qty($s_qty,$p_id);
-                    $session->msg('s',"Sale updated.");
+                    $session->msg('s',"Cliente Actualizado.");
                     redirect('clients.php?id='.$cliente['idCliente'], false);
                   } else {
-                    $session->msg('d',' Sorry failed to updated!');
+                    $session->msg('d','Cliente no actualizado, error!');
                     redirect('clients.php', false);
                   }
         } else {
@@ -57,14 +57,14 @@ if(!$cliente){
         <span>All Clients</span>
      </strong>
      <div class="pull-right">
-       <a href="sales.php" class="btn btn-primary">Show all clients</a>
+       <a href="sales.php" class="btn btn-primary">Mostrar todos los clientes</a>
      </div>
     </div>
     <div class="panel-body">
        <table class="table table-bordered">
          <thead>
           <th> Nombre </th>
-          <th> Categoria </th>
+          <th> Categoria actual: <?php echo remove_junk($datos['categoria']); ?></th>
           <th> Acciones </th>
          </thead>
            <tbody  id="product_info">
@@ -75,10 +75,14 @@ if(!$cliente){
                   <div id="result" class="list-group"></div>
                 </td>
                 <td id="s_price">
-                  <input type="text" class="form-control" name="catC" value="<?php echo remove_junk($datos['categoria']); ?>" >
+                 <!--- <input type="text" class="form-control" name="catC" value="<?php// echo remove_junk($datos['categoria']); ?>" >-->
+                  <select id="catc" name="catc"   value="<?php echo remove_junk($datos['categoria']); ?>">
+                      <option value="Normal">Normal</option>
+                      <option value="Premium">Premium</option>
+                    </select>
                 </td>
                 <td>
-                  <button type="submit" name="update_sale" class="btn btn-primary">Update Client</button>
+                  <button type="submit" name="update_sale" class="btn btn-primary">Modificar Cliente</button>
                 </td>
               </form>
               </tr>

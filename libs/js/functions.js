@@ -62,6 +62,7 @@ function suggetion() {
                    //console.log(data);
                    console.log(formData['client_name']);
                    $('#result2').html(data).fadeIn();
+                   console.log($('#result2').html(data).fadeIn());
                    $('#result2 li').click(function() {
 
                      $('#sug_input2').val($(this).text());

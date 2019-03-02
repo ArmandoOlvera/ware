@@ -1,7 +1,7 @@
 <?php
   $page_title = 'Agregar Cliente';
   require_once('includes/load.php');
-  
+  $check=0;
   // Checkin What level user has permission to view this page
    page_require_level(3);
    
@@ -24,6 +24,7 @@
           $sql .= "0,'{$nombrec}','{$catc}'";
           $sql .= ")";
           $algo= insertarUniversal($sql);
+          $check=999;
         } else {
            $session->msg("d", $errors);
            redirect('add_client.php',false);
@@ -31,7 +32,13 @@
   }
 
 ?>
+
 <?php include_once('layouts/header.php'); ?>
+<?php if(isset($_POST['add_client123'])){
+          echo("<h1>Cliente añadido correctamente!</h1>");
+      }else {
+        echo "<h1>Error al Guardar el cliente, intente de nuevo.</h1>";
+      } ?>
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
@@ -40,6 +47,7 @@
           <span>Agregar Cliente</span>
        </strong>
       </div>
+      
       <div class="panel-body">
         <form method="post" action="add_client.php" >
           <legend>Ingrese los datos del cliente:</legend>

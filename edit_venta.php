@@ -5,7 +5,11 @@
    page_require_level(3);
 ?>
 <?php
-$sale = findVenta_by_id('ventas',(int)$_GET['id']);
+$ide=(int)$_GET['id'];
+$sale = findVenta_by_id('ventas',$ide);
+$cliente =find_by_idCliente('clientes',$sale['idCliente']);
+$compras = findSales_by_id('sales',$ide);
+//$productos=findProducts_by_id('products',$compras['product_id']);
 if(!$sale){
   $session->msg("d","Missing Venta id.");
   redirect('sales.php');
@@ -13,7 +17,7 @@ if(!$sale){
 ?>
 <?php $product = find_by_id('products',$sale['product_id']); ?>
 <?php
-
+/*
   if(isset($_POST['update_sale'])){
     $req_fields = array('title','quantity','price','total', 'date' );
     validate_fields($req_fields);
@@ -40,7 +44,8 @@ if(!$sale){
            $session->msg("d", $errors);
            redirect('edit_sale.php?id='.(int)$sale['id'],false);
         }
-  }
+       
+  } */
 
 ?>
 <?php include_once('layouts/header.php'); ?>
@@ -56,10 +61,10 @@ if(!$sale){
     <div class="panel-heading clearfix">
       <strong>
         <span class="glyphicon glyphicon-th"></span>
-        <span>All Sales</span>
+        <span>Ver Venta - Folio de Venta: <?php echo (int)$sale['idVenta']; ?></span>
      </strong>
      <div class="pull-right">
-       <a href="sales.php" class="btn btn-primary">Show all sales</a>
+       <a href="sales.php" class="btn btn-primary">Ver todas las ventas</a>
      </div>
     </div>
     <div class="panel-body">
@@ -68,31 +73,71 @@ if(!$sale){
           <th> Cliente </th>
           <th> Fecha </th>
           <th> Total </th>
+          <th> Total sin impuestos</th>
          </thead>
            <tbody  id="product_info">
               <tr>
-              <form method="post" action="edit_sale.php?id=<?php echo (int)$sale['id']; ?>">
+              <form method="post"  autocomplete="off" action="ajax.php" id="sug-form2"><!--action="edit_sale.php?id=<?php //echo (int)$sale['id']; ?>"-->
                 <td id="s_name">
-                  <input type="text" class="form-control" id="sug_input" name="title" value="<?php echo remove_junk($product['name']); ?>">
+                  <input type="text"  id="sug_input2" class="form-control" name="title2"    value="<?php echo remove_junk($cliente['nombre']); ?>" disabled required>
                   <div id="result" class="list-group"></div>
                 </td>
                 <td id="s_qty">
-                  <input type="text" class="form-control" name="quantity" value="<?php echo (int)$sale['qty']; ?>">
+                  <input type="text" class="form-control" name="quantity" value="<?php echo $sale['fecha']; ?>" disabled>
                 </td>
                 <td id="s_price">
-                  <input type="text" class="form-control" name="price" value="<?php echo remove_junk($product['sale_price']); ?>" >
+                  <input type="text" class="form-control" name="price" value="<?php echo remove_junk($sale['total']); ?>" disabled>
                 </td>
                 <td>
-                  <input type="text" class="form-control" name="total" value="<?php echo remove_junk($sale['price']); ?>">
+                  <input type="text" class="form-control" name="total" value="<?php echo remove_junk($sale['subtotal']); ?>" disabled>
                 </td>
-                <td id="s_date">
-                  <input type="date" class="form-control datepicker" name="date" data-date-format="" value="<?php echo remove_junk($sale['date']); ?>">
+              <!--  <td id="s_date">
+                  <input type="date" class="form-control datepicker" name="date" data-date-format="" value="<?php echo remove_junk($sale['date']); ?>" disabled>
                 </td>
                 <td>
                   <button type="submit" name="update_sale" class="btn btn-primary" onclick="" >Update sale</button>
-                </td>
+                </td>-->
               </form>
               </tr>
+           </tbody>
+       </table>
+       <hr>
+       <table class="table table-bordered">
+         <thead>
+          <th> Producto </th>
+          <th> Cantidad </th>
+          <th> Total </th>
+          <th> Total sin impuestos</th>
+         </thead>
+           <tbody  id="product_info">
+             
+                <?php foreach ($compras as $compras):?>
+                  <?php  $nombreproducto = findProducts_by_id('products',$compras['product_id']); ?>
+              <tr>
+                <td id="s_name">
+                 
+                  <input type="text"  id="sug_input2" class="form-control" name="title22"    value="<?php echo $nombreproducto['name']; ?>" disabled>
+                 
+                  <div id="result" class="list-group"></div>
+                </td>
+                <td id="s_qty">
+                  <input type="text" class="form-control" name="quantity33" value="<?php echo  $compras['qty']; ?>" disabled>
+                </td>
+                <td id="s_price">
+                  <input type="text" class="form-control" name="price33" value="<?php echo remove_junk($sale['total']); ?>" disabled>
+                </td>
+                <td>
+                  <input type="text" class="form-control" name="total33" value="<?php echo remove_junk($sale['subtotal']); ?>" disabled>
+                </td>
+              <!--  <td id="s_date">
+                  <input type="date" class="form-control datepicker" name="date" data-date-format="" value="<?php echo remove_junk($sale['date']); ?>" disabled>
+                </td>
+                <td>
+                  <button type="submit" name="update_sale" class="btn btn-primary" onclick="" >Update sale</button>
+                </td>-->
+             </tr>
+              <?php endforeach;?>
+              
            </tbody>
        </table>
 

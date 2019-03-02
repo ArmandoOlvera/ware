@@ -79,6 +79,14 @@
 
 ?>
 <?php include_once('layouts/header.php'); ?>
+<?php 
+ if($check==999){
+                  echo "<h1>EXITO, la venta ha sido realizada correctamente.</h1>";
+                  $_SESSION['datos'] = array();
+                     }else{
+                      echo "<h1>ERROR, ingrese los parametros correctamente.</h1>";
+                       }
+ ?>
 <div class="row">
   <div class="col-md-6">
     <?php echo display_msg($msg); ?>
@@ -106,7 +114,7 @@
           <div class="input-group">
             <span class="input-group-btn">
             <!--  <button name="submit" id="submit" type="submit" class="btn btn-primary">Búsqueda</button>-->
-            <input type="text" id="sug_input2" class="form-control" name="title2"  placeholder="Buscar por el nombre del cliente" onmouseout ="textoVariables()" onmouseover ="textoVariables()"></span>
+            <input type="text" id="sug_input2" class="form-control" name="title2"  placeholder="Buscar por el nombre del cliente" onmouseout ="textoVariables()" onmouseover ="textoVariables()" required></span>
          </div>
          <div id="result2" class="list-group"></div>
         </div>
@@ -139,11 +147,11 @@
             <?php 
                 if (isset($_POST['add_sale'])) {
                      if($check==999){
-                  echo "<h1>EXITO, la venta ha sido realizada correctamente.</h1>";
-                  $_SESSION['datos'] = array();
+                //  echo "<h1>EXITO, la venta ha sido realizada correctamente.</h1>";
+                //  $_SESSION['datos'] = array();
                      }else{
 
-                  echo "<h1>ERROR, ingrese los parametros correctamente.</h1>";
+                  //    echo "<h1>ERROR, ingrese los parametros correctamente.</h1>";
                         $page='';
                         $posw=0;
                         $_SESSION['datos2']=$_SESSION['datos'];
@@ -196,14 +204,14 @@
              <th>Acciones</th>
            </thead>
            <tbody>
-             <td><input type="date" class="form-control datePicker" name="date" data-date="" data-date-format="yyyy-mm-dd" id="date" value="<?php echo date("Y-m-d");?>"></td>
-             <td><input id="clickMe"  class="btn btn-primary" type="button" value="Calcular" onclick="cargarTotal()" /></td><td><input  class="form-control" id="t1" type="" name="t1"></td>
-             <td><input class="form-control" id="t2" type="" name="t2"></td>
+             <td><input type="date" class="form-control datePicker" name="date" data-date="" data-date-format="yyyy-mm-dd" id="date" value="<?php echo date("Y-m-d");?>" required></td>
+             <td><input id="clickMe"  class="btn btn-primary" type="button" value="Calcular" onclick="cargarTotal()" /></td><td><input  class="form-control" id="t1" type="" name="t1" required></td>
+             <td><input class="form-control" id="t2" type="" name="t2" required></td>
              <td><button type="submit" name="add_sale" class="btn btn-primary">Guardar Venta</button>
              </td>
            </tbody>
          </table>
-          <input type="hidden" id="selectedtext" name="selectedtext" placeholder="Primer Nombre" >
+          <input type="hidden" id="selectedtext" name="selectedtext" placeholder="Primer Nombre" required>
        </form>
       </div>
     </div>

@@ -104,6 +104,16 @@ public function while_loop($loop){
  return $results;
 }
 
+public function while_loop2($loop){
+ global $db;
+   $results ='';
+   while ($result = $this->fetch_array($loop)) {
+      $results = $result;
+   }
+ return $results;
+}
+
+
 }
 
 $db = new MySqli_DB();
